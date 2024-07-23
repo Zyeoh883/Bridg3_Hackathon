@@ -221,9 +221,10 @@ header {
 	border-radius: 0 0 20px 20px;
   }
 
-  .search-results {
+.search-results {
 	width: 100%;
 	height: 100%;
+
 	vertical-align: middle;
 	border-collapse: collapse;
 	border-top: 2px solid #d2d2d2;
@@ -232,14 +233,15 @@ header {
   .search-results th, .search-results td {
 	padding: 12px 8px;
 	color: #737579;
-  }
-
-  .search-header th {
-	font-size: 14px;
+	font-weight: lighter;
 	font-family: "Montserrat-Light";
   }
 
+  .search-header th {
+	font-size: 14px; /*Should be 18*/
+	font-weight: bolder;
+  }
+
   .search-header td {
-	font-weight: lighter;
-	font-size: 14px;
+	font-size: 24px;
   }
