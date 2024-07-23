@@ -1,0 +1,23 @@
+{
+  "name": "ipfs-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "@helia/unixfs": "^3.0.6",
+    "@types/express": "^4.17.21",
+    "@types/multer": "^1.4.11",
+    "express": "^4.19.2",
+    "fs-js": "^1.0.6",
+    "helia": "^4.2.4",
+    "multer": "^1.4.5-lts.1",
+    "mutter": "^1.0.1",
+    "nodemon": "^3.1.4"
+  },
+  "devDependencies": {
+    "yarn-upgrade-all": "^0.7.2"
+  },
+  "description": "backend prototype for ipfs",
+  "author": "JoshuaNgerng"
+}
