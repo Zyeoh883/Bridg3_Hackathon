@@ -259,3 +259,116 @@ footer {
 .logo {
   width: 80px;
 }
+
+.img3 {
+  width: 320px;
+  height: 400px;
+  margin-top: 150px;
+}
+
+/* .boxcontainer2 {
+  margin: auto;
+  margin-top: 100px;
+  position: relative;
+  width: 650px;
+  height: 40vh;
+  padding: 0px 15px;
+  background-color: #ffff;
+  border-radius: 20px;
+} */
+
+.boxcontainer2 {
+  width: 100%;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  margin-top: 50px;
+  padding: 20px;
+}
+
+#drop-area {
+  min-width: 800px; /* Minimum width to ensure it doesn't get too small */
+  min-height: 400px; /* Minimum height to ensure it doesn't get too small */
+  padding: 20px;
+  background: #fff;
+  text-align: center;
+  border-radius: 20px;
+  position: relative;
+  border: 2px dashed #0080ff;
+  display: flex;
+  flex-direction: column; /* Align children vertically, change to row if needed */
+  justify-content: center; /* Center content vertically */
+  align-items: center; /* Center content horizontally */
+  box-sizing: border-box; /* Include padding and border in element's width and height */
+}
+
+.inner-box {
+  width: 100%;
+  height: 100%;
+  border: none; /* Remove border from inner-box if present */
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px; /* Adjust padding to create space between border and inner content */
+  box-sizing: border-box;
+
+  /* Background color, optional */ /* Padding inside the box */
+}
+
+#input-file {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0; /* Make the input invisible but still functional */
+  cursor: pointer; /* Change cursor to indicate a clickable area */
+}
+
+#file-preview {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center items horizontally */
+  margin: 20px; /* Stack items vertically */
+}
+
+.file-item {
+  display: flex; /* Align items horizontally */
+  align-items: center; /* Center items vertically */
+  margin-bottom: 10px; /* Space between each file item */
+}
+
+.file-icon {
+  width: 24px; /* Adjust icon size as needed */
+  height: 24px; /* Adjust icon size as needed */
+  margin-right: 10px; /* Space between icon and file name */
+}
+
+#file-preview img {
+  max-width: 100px;
+  max-height: 100px;
+  object-fit: cover;
+}
+
+#file-preview p {
+  margin: 0;
+  font-size: 12px;
+  color: #737579;
+}
+
+.buttons1 {
+  background-color: #0080ff;
+  border-radius: 42px;
+  font-weight: 700;
+  padding: 15px 25px;
+  border: solid;
+  border-color: transparent;
+}
+
+#drop-area.drop-area-no-border {
+  border: none !important; /* Use !important to override other border styles */
+}
+
+/* Ensure dashed-border class is applied correctly */
+#drop-area.drop-area-dashed {
+  border: 2px dashed #0080ff !important; /* Use !important to override other border styles */
+}
