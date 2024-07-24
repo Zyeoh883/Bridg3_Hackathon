@@ -16,4 +16,4 @@ document.getElementById(form_up_id)!.onsubmit = async function(event) {
 
 	const result = await response.text();
 	alert(result);
-};
+}

@@ -17,4 +17,4 @@ document.getElementById(form_check_id)!.onsubmit = async function(event) {
 
 	const result = await response.text();
 	alert(result);
-};
+}
