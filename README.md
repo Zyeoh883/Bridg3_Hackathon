@@ -3,6 +3,9 @@ I use tsc typescript and yarn for this project
 setup with 
 yarn install
 yarn add @helia/unixfs
+yarn add multiformats
+idk why yarn install itself cant work , give up fixing dependecies lulz 
+
 
 to make ts into js just use
 tsc
