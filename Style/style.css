@@ -328,13 +328,19 @@ footer {
   display: flex;
   flex-direction: column; /* Stack items vertically */
   align-items: center; /* Center items horizontally */
-  margin: 20px; /* Stack items vertically */
+  margin: 20px;
+  margin-bottom: 40px;
+  margin-top: 100px; /* Stack items vertically */
 }
 
 .file-item {
-  display: flex; /* Align items horizontally */
-  align-items: center; /* Center items vertically */
-  margin-bottom: 10px; /* Space between each file item */
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border-top: 1px solid #e1dfec;
+  justify-content: center;
+  padding-bottom: 20px;
+  padding-top: 10px;
 }
 
 .file-icon {
@@ -355,13 +361,19 @@ footer {
   color: #737579;
 }
 
-.buttons1 {
+.buttons3 {
+  display: none;
+}
+
+.show-submit-button {
   background-color: #0080ff;
   border-radius: 42px;
   font-weight: 700;
   padding: 15px 25px;
   border: solid;
   border-color: transparent;
+  display: block;
+  margin: 0 30%;
 }
 
 #drop-area.drop-area-no-border {
@@ -371,4 +383,23 @@ footer {
 /* Ensure dashed-border class is applied correctly */
 #drop-area.drop-area-dashed {
   border: 2px dashed #0080ff !important; /* Use !important to override other border styles */
+}
+
+#no-drop-files-heading {
+  color: #737579;
+  margin: 70px 0;
+  font-weight: 700;
+  font-size: 20px;
+  display: block; /* Ensure it is shown by default */
+}
+
+.remove-icon {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+#file-count {
+  display: none; /* Hide by default */
 }
