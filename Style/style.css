@@ -151,7 +151,7 @@ header {
 
 .heading1 {
   text-align: center;
-  margin-top: 90px;
+  margin-top: 40px;
   color: #ffff;
   z-index: 1;
   font-family: Montserrat-Light;
@@ -283,12 +283,12 @@ footer {
   align-content: center;
   justify-content: center;
   margin-top: 50px;
-  padding: 20px;
+  padding: 15px;
 }
 
 #drop-area {
-  min-width: 800px; /* Minimum width to ensure it doesn't get too small */
-  min-height: 400px; /* Minimum height to ensure it doesn't get too small */
+  min-width: 607px; /* Minimum width to ensure it doesn't get too small */
+  min-height: 365px; /* Minimum height to ensure it doesn't get too small */
   padding: 20px;
   background: #fff;
   text-align: center;
@@ -308,7 +308,6 @@ footer {
   border: none; /* Remove border from inner-box if present */
   background-color: #fff;
   border-radius: 8px;
-  padding: 20px; /* Adjust padding to create space between border and inner content */
   box-sizing: border-box;
 
   /* Background color, optional */ /* Padding inside the box */
@@ -329,8 +328,8 @@ footer {
   flex-direction: column; /* Stack items vertically */
   align-items: center; /* Center items horizontally */
   margin: 20px;
-  margin-bottom: 40px;
-  margin-top: 100px; /* Stack items vertically */
+  margin-bottom: 55px;
+  margin-top: 45px; /* Stack items vertically */
 }
 
 .file-item {
@@ -339,8 +338,7 @@ footer {
   width: 100%;
   border-top: 1px solid #e1dfec;
   justify-content: center;
-  padding-bottom: 20px;
-  padding-top: 10px;
+  padding-bottom: 5px;
 }
 
 .file-icon {
