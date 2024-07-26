@@ -68,7 +68,7 @@ export async function getFileFromIPFS( fs: UnixFS, cid: string ) : Promise<[Uint
 
 	try {
 		const cid_: CID = CID.parse(cid);
-	const chunks: AsyncIterable<Uint8Array> = createAsyncIterableWithTimeout(fs.cat(cid_), 10000)
+		const chunks: AsyncIterable<Uint8Array> = createAsyncIterableWithTimeout(fs.cat(cid_), 10000)
 		let text_list: Uint8Array[] = [];
 		for await(const chunk of chunks) {
 			text_list.push(chunk);

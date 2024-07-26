@@ -9,30 +9,39 @@ import { checkFileType } from './src/validator.js';
 // setup for server
 const app = express();
 const upload = multer({ storage: multer.memoryStorage() });
-const port = 6996;
-const launchdir = join(dirname(fileURLToPath(import.meta.url)) + '/public');
+const port = 6969;
+const launchdir = join(dirname(fileURLToPath(import.meta.url)));
 // start helia for ipfs connection
 const helia = await startHelia();
 const fs = unixfs(helia);
-const logfile = 'public/log.txt';
+const logfile = 'log.txt';
 app.use('/', express.static(join(launchdir)));
-app.get('/user', (req, res) => {
-    res.sendFile(join(launchdir, '/user.html'));
+app.get('/upload', (req, res) => {
+    res.sendFile(join(launchdir, '/upload_files.html'));
 });
-app.get('/issuer', (req, res) => {
-    res.sendFile(join(launchdir, '/issuer.html'));
+app.get('/about.html', (req, res) => {
+    res.sendFile(join(launchdir, '/about.html'));
 });
-app.post('/upload', upload.single('file'), async (req, res) => {
-    if (!req.file) {
-        return (res.status(400).send('No file uploaded.'));
+// app.get('/issuer', (req: Request, res: Response) => {
+// 	res.sendFile(join(launchdir, '/issuer.html'));
+// });
+app.post('/upload', upload.any(), async (req, res) => {
+    if (!req.files || req.files.length === 0) {
+        return (res.status(400).send('No file uploaded to server.'));
     }
-    const filetype = checkFileType(req.file.buffer);
-    if (filetype < 0) {
-        return (res.status(404).send(`Unidentified File given`));
+    let check = true;
+    for (const file of req.files) {
+        const filetype = checkFileType(file.buffer);
+        if (filetype < 0) {
+            check = false;
+            continue;
+        }
+        const cid = await uploadToIPFS(fs, file.buffer);
+        logtext(`Added file '${file.originalname}' as ${cid.toString()}`, logfile);
     }
-    const cid = await uploadToIPFS(fs, req.file.buffer);
-    res.status(201).send(`File sucessfully added ${req.file.originalname} as cid: ${cid.toString()}`);
-    logtext(`Added file '${req.file.originalname}' as ${cid.toString()}`, logfile);
+    if (check == false)
+        return (res.status(404).send(`Some Files have unideftiable format`));
+    res.status(201).send(`All files sucessfully added`); // ${req.file.originalname}  cid: ${cid.toString()}`);
 });
 app.post('/download', upload.none(), async (req, res) => {
     if (!req.body) {
@@ -57,4 +66,9 @@ app.listen(port, async () => {
     console.log(`App is ready and listening on http://localhost:${port}`);
     logtext('New server session', logfile);
     logLibp2pInfo(helia, logfile);
+});
+process.on('SIGINT', () => {
+    console.log("\nGracefully shutting down from SIGINT (Ctrl-C)");
+    helia.stop();
+    process.exit();
 });
