@@ -1,3 +1,7 @@
+function uploadFile() {
+  console.log("Upload the attached files into the IPFS");
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const dropArea = document.getElementById("drop-area");
   const fileInput = document.getElementById("input-file");
@@ -7,14 +11,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const submitButton = document.querySelector(".buttons3");
   const fileCountElement = document.getElementById("file-count");
 
-  // Define file type icons (but we will use png-icon for all)
+  // Define file type icons
   const fileIcons = {
     "image/png": "Style/img/png-icon.png",
-    "image/jpeg": "Style/img/png-icon.png",
-    "application/pdf": "Style/img/png-icon.png",
-    "text/plain": "Style/img/png-icon.png",
-    "application/zip": "Style/img/png-icon.png",
-    default: "Style/img/png-icon.png",
+    "image/jpeg": "Style/img/jpeg-icon.png",
+    "application/pdf": "Style/img/pdf-icon.png",
+    "text/plain": "Style/img/txt-icon.png",
+    "application/zip": "Style/img/zip-icon.png",
+    default: "Style/img/default-icon.png",
     trash: "Style/img/trash-icon.png",
   };
 
@@ -55,6 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       dropArea.classList.remove("drop-area-dashed");
       dropArea.classList.add("drop-area-no-border");
+      console.log("Removed dashed border and added no border class.");
       dropFilesHeading.style.display = "none";
       submitButton.classList.add("show-submit-button");
       fileInput.style.display = "none";
@@ -69,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const fileIcon = document.createElement("img");
       fileIcon.className = "file-icon";
-      fileIcon.src = fileIcons["image/png"]; // Always use png-icon.png
+      fileIcon.src = fileIcons[file.type] || fileIcons["default"];
 
       const fileName = document.createElement("p");
       fileName.textContent = file.name;
@@ -99,14 +104,16 @@ document.addEventListener("DOMContentLoaded", () => {
   function updateFileCount(count) {
     if (count > 0) {
       fileCountElement.textContent = `Files Uploaded: ${count}`;
-      fileCountElement.style.display = "block"; // Show file count
+      fileCountElement.style.display = "block";
     } else {
-      fileCountElement.style.display = "none"; // Hide file count
+      fileCountElement.style.display = "none";
     }
   }
 
   function updateFileInput() {
     const dataTransfer = new DataTransfer();
+    const fileInput = document.getElementById("input-file");
+
     Array.from(filePreview.getElementsByClassName("file-item")).forEach(
       (fileItem) => {
         const fileName = fileItem.querySelector("p").textContent;
@@ -130,9 +137,10 @@ document.addEventListener("DOMContentLoaded", () => {
     insertDriveFileImg.style.display = "block";
     dropArea.classList.add("drop-area-dashed");
     dropArea.classList.remove("drop-area-no-border");
+    console.log("Added dashed border and removed no border class.");
     dropFilesHeading.style.display = "block";
     submitButton.classList.remove("show-submit-button");
     fileInput.style.display = "block";
-    updateFileCount(0); // Ensure file count is hidden initially
+    updateFileCount(0);
   }
 });
