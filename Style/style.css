@@ -266,17 +266,6 @@ footer {
   margin-top: 150px;
 }
 
-/* .boxcontainer2 {
-  margin: auto;
-  margin-top: 100px;
-  position: relative;
-  width: 650px;
-  height: 40vh;
-  padding: 0px 15px;
-  background-color: #ffff;
-  border-radius: 20px;
-} */
-
 .boxcontainer2 {
   width: 100%;
   display: flex;
@@ -294,7 +283,6 @@ footer {
   text-align: center;
   border-radius: 20px;
   position: relative;
-  /* border: 2px dashed #0080ff; */
   display: flex;
   flex-direction: column; /* Align children vertically, change to row if needed */
   justify-content: center; /* Center content vertically */
@@ -411,5 +399,42 @@ footer {
 	border-collapse: collapse;
 	border: 2px dashed #0080ff;
 	margin: 0;
-	/* border-top: 2px solid #d2d2d2; */
   }
+
+.dropdown-results {
+	display: none;
+	margin: auto;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	position: relative;
+	width: 650px;
+	height: 90px;
+	padding: 0px 15px;
+	background-color: #ffff;
+	border-radius: 20px;
+  }
+
+.dropdown-results.show {
+	display: block;
+  }
+
+.results-table {
+	width: 100%;
+	height: 100%;
+	vertical-align: middle;
+	border-collapse: collapse;
+  }
+
+.results-table th, .results-table td {
+	padding: 12px 8px;
+	font-size: 16px;
+	color: #737579;
+	font-weight: lighter;
+	font-family: "Montserrat-Light";
+  }
+
+.results-header th {
+	font-size: 14px;
+	font-weight: bolder;
+  }
+

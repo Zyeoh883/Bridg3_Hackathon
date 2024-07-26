@@ -3,6 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<script src="./scripts.js"></script>
+
     <link rel="stylesheet" href="Style/style.css" />
 
     <link
@@ -55,30 +58,63 @@
       </div>
       <div class="heading1">Where Validity is Guaranteed</div>
 
-      <div class="boxcontainer">
-        <table class="elementscontainer">
-          <tr>
-            <td>
-              <span
-                class="material-symbols-outlined"
-                style="color: black; font-size: 35px; font-weight: 300"
-              >
-                search
-              </span>
-            </td>
-            <td>
-              <input
-                type="text"
-                placeholder="Search Credentials"
-                class="search"
-              />
-            </td>
-            <td>
-              <button type="submit" class="searchsubmit">Search</button>
-            </td>
-          </tr>
-        </table>
-      </div>
+		<div class="boxcontainer">
+			<table class="elementscontainer">
+			  <tr>
+				<td>
+				  <span
+					class="material-symbols-outlined"
+					style="color: black; font-size: 35px; font-weight: 300">
+					search
+				  </span>
+				</td>
+				<form id="my-form">
+				<td>
+					<input
+						type="text"
+						placeholder="Search Credentials"
+						class="search"
+						name="hash-input"/>
+				</td>
+				<td>
+					<button type="submit" class="searchsubmit">Search</button>
+				</td>
+				</form>
+			  </tr>
+			</table>
+      	</div>
+
+	  <div class="dropdown-results" id="no_match">
+			<table class="results-table">
+			<tbody class="results-body">
+				<tr>
+					<th>No credentials found</th>
+				</tr>
+			</tbody>
+			</table>
+	  </div>
+
+	  <div class="dropdown-results" id="match_found">
+	  <table class="results-table">
+		  <thead class="results-header">
+			<tr>
+			  <th>Name</th>
+			  <th>Date of Issue</th>
+			  <th>Type of Credentials</th>
+			  <th>Issuer</th>
+			</tr>
+		  </thead>
+		  <tbody class="results-body">
+			<tr>
+				<th>John Dew</th>
+				<th>12-April-2024</th>
+				<th>Bachelor’s Degree Cert</th>
+				<th>Sunway University</th>
+			</tr>
+		  </tbody>
+	  </table>
+	  </div>
+
       <div style="text-align: right">
         <img src="Style/img/Img2.png" style="float: right; margin-top: 150px" />
       </div>
