@@ -17,24 +17,167 @@
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@40,100,0,0"
     />
     <title>VeriChain</title>
-    <script src="script.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const dropArea = document.getElementById("drop-area");
+        const fileInput = document.getElementById("input-file");
+        const filePreview = document.getElementById("file-preview");
+        const dropFilesHeading = document.getElementById(
+          "no-drop-files-heading"
+        );
+        const insertDriveFileImg = document.querySelector("#drop-area img");
+        const submitButton = document.querySelector(".buttons3");
+        const fileCountElement = document.getElementById("file-count");
+
+        // Define file type icons
+        const fileIcons = {
+          "image/png": "Style/img/png-icon.png",
+          "image/jpeg": "Style/img/jpeg-icon.png",
+          "application/pdf": "Style/img/pdf-icon.png",
+          "text/plain": "Style/img/txt-icon.png",
+          "application/zip": "Style/img/zip-icon.png",
+          default: "Style/img/default-icon.png",
+          trash: "Style/img/trash-icon.png",
+        };
+
+        // Handle drag events
+        dropArea.addEventListener("dragover", (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          dropArea.classList.add("dragging");
+        });
+
+        dropArea.addEventListener("dragleave", (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          dropArea.classList.remove("dragging");
+        });
+
+        dropArea.addEventListener("drop", (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          dropArea.classList.remove("dragging");
+
+          const files = event.dataTransfer.files;
+          handleFiles(files);
+        });
+
+        // Handle file input change
+        fileInput.addEventListener("change", (event) => {
+          const files = event.target.files;
+          handleFiles(files);
+        });
+
+        function handleFiles(files) {
+          filePreview.innerHTML = "";
+          insertDriveFileImg.style.display = "none";
+
+          if (files.length === 0) {
+            showInitialView();
+          } else {
+            dropArea.classList.remove("drop-area-dashed");
+            dropArea.classList.add("drop-area-no-border");
+            console.log("Removed dashed border and added no border class.");
+            dropFilesHeading.style.display = "none";
+            submitButton.classList.add("show-submit-button");
+            fileInput.style.display = "none";
+          }
+
+          updateFileCount(files.length);
+
+          for (const file of files) {
+            const fileContainer = document.createElement("div");
+            fileContainer.className = "file-item";
+            fileContainer.dataset.name = file.name;
+
+            const fileIcon = document.createElement("img");
+            fileIcon.className = "file-icon";
+            fileIcon.src = fileIcons[file.type] || fileIcons["default"];
+
+            const fileName = document.createElement("p");
+            fileName.textContent = file.name;
+
+            const removeButton = document.createElement("img");
+            removeButton.className = "remove-icon";
+            removeButton.src = fileIcons["trash"];
+            removeButton.alt = "Remove";
+            removeButton.addEventListener("click", (event) => {
+              event.stopPropagation();
+              fileContainer.remove();
+              updateFileInput();
+              if (filePreview.children.length === 0) {
+                showInitialView();
+              }
+              updateFileCount(filePreview.children.length);
+            });
+
+            fileContainer.appendChild(fileIcon);
+            fileContainer.appendChild(fileName);
+            fileContainer.appendChild(removeButton);
+
+            filePreview.appendChild(fileContainer);
+          }
+        }
+
+        function updateFileCount(count) {
+          if (count > 0) {
+            fileCountElement.textContent = `Files Uploaded: ${count}`;
+            fileCountElement.style.display = "block";
+          } else {
+            fileCountElement.style.display = "none";
+          }
+        }
+
+        function updateFileInput() {
+          const dataTransfer = new DataTransfer();
+          const fileInput = document.getElementById("input-file");
+
+          Array.from(filePreview.getElementsByClassName("file-item")).forEach(
+            (fileItem) => {
+              const fileName = fileItem.querySelector("p").textContent;
+              const file = Array.from(fileInput.files).find(
+                (f) => f.name === fileName
+              );
+              if (file) {
+                dataTransfer.items.add(file);
+              }
+            }
+          );
+
+          fileInput.files = dataTransfer.files;
+
+          if (dataTransfer.files.length === 0) {
+            fileInput.style.display = "block";
+          }
+        }
+
+        function showInitialView() {
+          insertDriveFileImg.style.display = "block";
+          dropArea.classList.add("drop-area-dashed");
+          dropArea.classList.remove("drop-area-no-border");
+          console.log("Added dashed border and removed no border class.");
+          dropFilesHeading.style.display = "block";
+          submitButton.classList.remove("show-submit-button");
+          fileInput.style.display = "block";
+          updateFileCount(0);
+        }
+      });
+    </script>
   </head>
   <body>
     <header>
       <div class="navbar">
         <div class="logo">
-          <a href="index.html"><img src="Style/img/VeriChainLogo.png" /> </a>
+          <a href="index.html"><img src="Style/img/VeriChainLogo.png" /></a>
         </div>
         <ul>
           <li class="links">
             <a href="index.html">Home</a>
             <a href="about.html">About</a>
-            <a href="#" class="services"
-              >Services
-              <span class="material-symbols-outlined">
-                keyboard_arrow_down
-              </span></a
-            >
+            <a href="#" class="services">
+              Services
+              <span class="material-symbols-outlined">keyboard_arrow_down</span>
+            </a>
             <a href="#">Pricing</a>
             <a href="#">Contact Us</a>
           </li>
@@ -63,45 +206,60 @@
       <div class="boxcontainer2">
         <div for="input-file" id="drop-area">
           <div class="inner-box">
-            <p
-              style="
-                color: #737579;
-                margin: 70px 0;
-                font-weight: 700;
-                font-size: 20px;
-              "
-              id="no-drop-files-heading"
-            >
-              Drop your files here
-            </p>
-            <div
-              id="file-count"
-              style="color: black; font-family: Montserrat-ExtraBold"
-            >
-              Files Uploaded: 0
-            </div>
-            <input
-              type="file"
-              id="input-file"
-              multiple
-              style="
-                color: black;
-                transform: translateX(30px);
-                overflow: hidden;
-                height: 66%;
-              "
-            />
-            <img
-              src="Style/img/insert_drive_file.png"
-              style="width: 70px; height: 70px; margin: auto"
-            />
-            <div id="file-preview"></div>
-            <a href="#" class="buttons3">Submit</a>
+            <table class="drop-box-table">
+              <tr>
+                <td
+                  id="no-drop-files-heading"
+                  style="
+                    color: #737579;
+                    margin: 70px 0;
+                    font-weight: 700;
+                    font-size: 20px;
+                  "
+                >
+                  Drop your files here
+                </td>
+                <td>
+                  <div
+                    id="file-count"
+                    style="
+                      color: #737579;
+                      margin: 70px 0;
+                      font-weight: 700;
+                      font-size: 20px;
+                    "
+                  >
+                    Files Uploaded: 0
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input
+                    type="file"
+                    id="input-file"
+                    multiple
+                    style="
+                      color: black;
+                      transform: translateX(30px);
+                      overflow: hidden;
+                      height: 66%;
+                    "
+                  />
+                  <img
+                    src="Style/img/insert_drive_file.png"
+                    style="width: 70px; height: 70px; margin: auto"
+                  />
+                  <div id="file-preview"></div>
+                </td>
+              </tr>
+            </table>
           </div>
+          <a href="#" class="buttons3">Submit</a>
         </div>
       </div>
       <div style="text-align: right">
-        <img src="Style/img/img4.png" style="margin-top: 10px" />
+        <img src="Style/img/img4.png" style="margin-top: 50px" />
       </div>
       <h4
         style="
@@ -114,7 +272,7 @@
       >
         History
       </h4>
-      <p style="text-align: center; margin-top: 80px; color: #737579">
+      <p style="text-align: center; margin-top: 100px; color: #737579">
         No History Found
       </p>
     </main>
@@ -152,8 +310,8 @@
         </div>
         <div class="col">
           <h4>SOCIAL MEDIA</h4>
-          <a
-            ><img
+          <a>
+            <img
               src="Style/img/Linkedin Finalized logo.png"
               style="width: 50px; height: 50px"
             />
