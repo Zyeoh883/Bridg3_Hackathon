@@ -4,8 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <script src="search.js"></script>
-
     <link rel="stylesheet" href="Style/style.css" />
 
     <link
@@ -76,13 +74,14 @@
                   placeholder="Search Credentials"
                   class="search"
                   name="hash-input"
+                  id="input_id"
                 />
               </td>
               <td>
                 <button
                   type="submit"
                   class="searchsubmit"
-                  onclick="searchFiles()"
+                  onclick="verifyFromServer()"
                 >
                   Search
                 </button>
@@ -106,17 +105,15 @@
         <table class="results-table">
           <thead class="results-header">
             <tr>
-              <th>Name</th>
+              <th>File Name</th>
               <th>Date of Issue</th>
-              <th>Type of Credentials</th>
               <th>Issuer</th>
             </tr>
           </thead>
           <tbody class="results-body">
             <tr>
-              <th>John Dew</th>
-              <th>12-April-2024</th>
-              <th>Bachelor’s Degree Cert</th>
+              <th id="myHash"></th>
+              <th id="myDate"></th>
               <th>Sunway University</th>
             </tr>
           </tbody>
@@ -184,4 +181,33 @@
       </div>
     </footer>
   </body>
+  <script src="search.js" type="module"></script>
+  <script>
+    async function verifyFromServer() {
+      globalId = document.getElementById("input_id").value;
+      if (!globalId) return;
+      const formData = new FormData();
+      formData.append("filename", globalId);
+      const response = await fetch("/download", {
+        method: "POST",
+        body: formData,
+      });
+      const result = await response.text();
+      alert(result);
+    }
+  </script>
+  <!-- <script>
+    async function verifyFromServer() {
+      let id = document.getElementById("input_id").value;
+      if (!id) return;
+      const formData = new FormData();
+      formData.append("filename", id);
+      const response = await fetch("/download", {
+        method: "POST",
+        body: formData,
+      });
+      const result = await response.text();
+      alert(result);
+    }
+  </script> -->
 </html>
