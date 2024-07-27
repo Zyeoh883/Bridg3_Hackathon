@@ -1,0 +1,20 @@
+{
+	"name": "checkid",
+	"version": "1.0.0",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"description": "",
+	"dependencies": {
+		"@mysten/bcs": "^1.0.3",
+		"@mysten/dapp-kit": "^0.14.13"
+	},
+	"type": "module",
+	"devDependencies": {
+		"@mysten/sui": "0.0.0-experimental-20240717180855"
+	}
+}
