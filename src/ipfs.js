@@ -9,7 +9,6 @@ import { MemoryDatastore } from 'datastore-core';
 import { CID } from 'multiformats/cid';
 import { join } from 'path';
 import { createAsyncIterableWithTimeout, TimeoutError } from './timeout.js';
-import { logtext } from './local.js';
 export async function startHelia(config = {}) {
     const blockstore = new MemoryBlockstore();
     const datastore = new MemoryDatastore();
@@ -77,12 +76,12 @@ export async function getFileFromIPFS(fs, cid) {
     }
     return ([null, 502, "Unknown error"]);
 }
-export function getLibp2pInfo(helia) {
-    return ([helia.libp2p.peerId, helia.libp2p.getMultiaddrs()]);
-}
-export function logLibp2pInfo(helia, logfile) {
-    logtext(`helia libp2p id is ${helia.libp2p.peerId.toString()}`, logfile);
-    helia.libp2p.getMultiaddrs().forEach((addr) => {
-        logtext(`connected to ${addr.toString()}`, logfile);
-    });
-}
+// export function getLibp2pInfo( helia: Helia ): [PeerId, Multiaddr[]] {
+// 	return ([(helia as CheckHelia).libp2p.peerId, (helia as CheckHelia).libp2p.getMultiaddrs()]);
+// }
+// export function logLibp2pInfo( helia: Helia, logfile: string ) : void {
+// 	logtext(`helia libp2p id is ${(helia as CheckHelia).libp2p.peerId.toString()}`, logfile);
+// 	(helia as CheckHelia).libp2p.getMultiaddrs().forEach( (addr: Multiaddr) => {
+// 		logtext(`connected to ${addr.toString()}`, logfile);
+// 	});
+// }

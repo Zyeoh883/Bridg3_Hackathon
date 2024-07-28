@@ -2,5 +2,5 @@ I use tsc typescript and yarn for this project
 
 setup with 
 yarn install
-yarn build
-yarn run
+yarn run build
+yarn run start

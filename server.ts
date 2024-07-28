@@ -5,7 +5,7 @@ import { fileURLToPath } from 'url'
 import { Helia } from 'helia'
 import { UnixFS, unixfs } from '@helia/unixfs'
 import { CID } from 'multiformats/cid'
-import { startHelia, uploadToIPFS, getFileFromIPFS, logLibp2pInfo } from './src/ipfs.js'
+import { startHelia, uploadToIPFS, getFileFromIPFS } from './src/ipfs.js'
 import { logtext, writeLocalFile } from './src/local.js'
 import { checkFileType } from './src/validator.js'
 
@@ -76,8 +76,6 @@ app.use((req : Request, res : Response) => {
 
 app.listen(port, async() =>  {
 	console.log(`App is ready and listening on http://localhost:${port}`);
-	logtext('New server session', logfile);
-	logLibp2pInfo(helia, logfile);
 });
 
 process.on('SIGINT', () => {

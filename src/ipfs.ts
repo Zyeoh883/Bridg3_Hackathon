@@ -3,7 +3,6 @@ import { UnixFS } from '@helia/unixfs'
 import { createLibp2p, Libp2pOptions, Libp2p } from 'libp2p'
 import { tcp } from '@libp2p/tcp'
 import { bootstrap } from '@libp2p/bootstrap';
-import type { PeerId } from '@libp2p/interface'
 import { noise } from '@chainsafe/libp2p-noise'
 import { yamux } from '@chainsafe/libp2p-yamux'
 import { MemoryBlockstore } from 'blockstore-core'
@@ -92,13 +91,13 @@ interface CheckHelia extends Helia {
 	libp2p: Libp2p;
 }
 
-export function getLibp2pInfo( helia: Helia ): [PeerId, Multiaddr[]] {
-	return ([(helia as CheckHelia).libp2p.peerId, (helia as CheckHelia).libp2p.getMultiaddrs()]);
-}
+// export function getLibp2pInfo( helia: Helia ): [PeerId, Multiaddr[]] {
+// 	return ([(helia as CheckHelia).libp2p.peerId, (helia as CheckHelia).libp2p.getMultiaddrs()]);
+// }
 
-export function logLibp2pInfo( helia: Helia, logfile: string ) : void {
-	logtext(`helia libp2p id is ${(helia as CheckHelia).libp2p.peerId.toString()}`, logfile);
-	(helia as CheckHelia).libp2p.getMultiaddrs().forEach( (addr: Multiaddr) => {
-		logtext(`connected to ${addr.toString()}`, logfile);
-	});
-}
+// export function logLibp2pInfo( helia: Helia, logfile: string ) : void {
+// 	logtext(`helia libp2p id is ${(helia as CheckHelia).libp2p.peerId.toString()}`, logfile);
+// 	(helia as CheckHelia).libp2p.getMultiaddrs().forEach( (addr: Multiaddr) => {
+// 		logtext(`connected to ${addr.toString()}`, logfile);
+// 	});
+// }
