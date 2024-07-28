@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="Style/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@40,100,0,0"
+    />
+    <title>VeriChain</title>
+  </head>
+  <body>
+    <header>
+      <div class="navbar">
+        <div class="logo">
+          <a href="index.html"><img src="Style/img/VeriChainLogo.png" /> </a>
+        </div>
+        <ul>
+          <li class="links">
+            <a href="#">Home</a>
+            <a href="about.html">About</a>
+            <a href="#" class="services"
+              >Services
+              <span class="material-symbols-outlined">
+                keyboard_arrow_down
+              </span></a
+            >
+            <a href="#">Pricing</a>
+            <a href="#">Contact Us</a>
+          </li>
+        </ul>
+        <div class="action_btn">
+          <a href="upload_files.html" class="buttons1">Upload Files</a>
+          <a href="#" class="buttons2">Register</a>
+        </div>
+
+        <div class="toggle_btn">
+          <span class="material-symbols-outlined">Menu</span>
+        </div>
+      </div>
+    </header>
+    <main>
+      <div class="container">
+        <img src="Style/img/img 1.png" class="img1" />
+      </div>
+      <div class="heading1">Where Validity is Guaranteed</div>
+
+      <div class="boxcontainer">
+        <table class="elementscontainer">
+          <tr>
+            <td>
+              <span
+                class="material-symbols-outlined"
+                style="color: black; font-size: 35px; font-weight: 300"
+              >
+                search
+              </span>
+            </td>
+            <form id="my-form">
+              <td>
+                <input
+                  type="text"
+                  placeholder="Search Credentials"
+                  class="search"
+                  name="hash-input"
+                  id="input_id"
+                />
+              </td>
+              <td>
+                <button
+                  type="submit"
+                  class="searchsubmit"
+                  onclick="verifyFromServer()"
+                >
+                  Search
+                </button>
+              </td>
+            </form>
+          </tr>
+        </table>
+      </div>
+
+      <div class="dropdown-results" id="no_match">
+        <table class="results-table">
+          <tbody class="results-body">
+            <tr>
+              <th>No credentials found</th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="dropdown-results" id="match_found">
+        <table class="results-table">
+          <thead class="results-header">
+            <tr>
+              <th>File Name</th>
+              <th>Date of Issue</th>
+              <th>Issuer</th>
+            </tr>
+          </thead>
+          <tbody class="results-body">
+            <tr>
+              <th id="myHash"></th>
+              <button style="cursor: pointer" id="downloadfile">
+                <span
+                  class="material-symbols-outlined"
+                  id="downloadfile"
+                  style="
+                    color: black;
+                    position: absolute;
+                    transform: translate(338px, 67px);
+                  "
+                >
+                  download
+                </span>
+              </button>
+              <th id="myDate"></th>
+              <th>Sunway University</th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="text-align: right">
+        <img src="Style/img/Img2.png" style="float: right; margin-top: 150px" />
+      </div>
+    </main>
+    <hr
+      style="
+        border: solid 1px #8c87a644;
+        margin-top: 100px;
+        margin-left: 100px;
+        margin-right: 100px;
+      "
+    />
+    <footer>
+      <div class="row">
+        <div class="col">
+          <img
+            src="Style/img/VeriChain black font 1.png"
+            style="width: 200px; height: 85px; margin-bottom: 25px"
+            class="logo"
+          />
+          <p style="color: #8c87a6; font-weight: 700">
+            Where Validity is Guaranteed
+          </p>
+        </div>
+        <div class="col">
+          <h4>USEFUL LINKS</h4>
+          <a>About</a>
+          <a>Services</a>
+          <a>Pricing</a>
+          <a>Contact Us</a>
+        </div>
+        <div class="col">
+          <h4>SERVICES</h4>
+          <a>File Transfer</a>
+          <a>Credential Validation</a>
+        </div>
+        <div class="col">
+          <h4>SOCIAL MEDIA</h4>
+          <a
+            ><img
+              src="Style/img/Linkedin Finalized logo.png"
+              style="width: 50px; height: 50px"
+            />
+            <img src="Style/img/ytoube icon.png" />
+            <img src="Style/img/Discord icon.png" />
+          </a>
+        </div>
+      </div>
+      <div style="border-top: solid 1px #8c87a644; margin: 50px 100px">
+        <p
+          style="
+            margin-left: 10%;
+            margin-top: 40px;
+            color: #8c87a6;
+            font-family: Montserrat-Light;
+          "
+        >
+          Copyright © 2024 VeriChain All rights reserved by Solvify
+        </p>
+      </div>
+    </footer>
+  </body>
+  <script src="search.js" type="module"></script>
+  <script>
+    async function verifyFromServer() {
+      globalId = document.getElementById("input_id").value;
+      if (!globalId) return;
+      const formData = new FormData();
+      formData.append("filename", globalId);
+      const response = await fetch("/download", {
+        method: "POST",
+        body: formData,
+      });
+      const result = await response.text();
+      alert(result);
+    }
+  </script>
+  <!-- <script>
+    async function verifyFromServer() {
+      let id = document.getElementById("input_id").value;
+      if (!id) return;
+      const formData = new FormData();
+      formData.append("filename", id);
+      const response = await fetch("/download", {
+        method: "POST",
+        body: formData,
+      });
+      const result = await response.text();
+      alert(result);
+    }
+  </script> -->
+</html>

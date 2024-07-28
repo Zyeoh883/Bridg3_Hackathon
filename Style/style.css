@@ -1,0 +1,469 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: #ffff;
+}
+
+@font-face {
+  font-family: "Montserrat-Medium";
+  src: url(fonts/Montserrat-Medium.ttf);
+}
+
+@font-face {
+  font-family: "Montserrat-ExtraBold";
+  src: url(fonts/Montserrat-ExtraBold.ttf);
+}
+
+@font-face {
+  font-family: "Montserrat-Light";
+  src: url(fonts/Montserrat-Light.ttf);
+}
+
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 0, "wght" 200, "GRAD" 0, "opsz" 24;
+  vertical-align: middle;
+}
+
+.services:hover .material-symbols-outlined {
+  color: #0080ff;
+  transition: 0.5s;
+}
+
+body {
+  font-family: "Montserrat-Medium";
+  height: 100vh;
+  background: linear-gradient(
+    to bottom,
+    #80b2df 0%,
+    rgba(128, 178, 223, 0) 100%
+  );
+  background-attachment: fixed;
+  display: flex;
+  flex-direction: column;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* HEADER */
+
+header {
+  position: relative;
+  padding: 0 2rem;
+}
+
+.navbar {
+  width: 100%;
+  height: 60px;
+  max-width: 1200px;
+  margin: 10px auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 50px 10px;
+  font-size: 15px;
+  border-bottom: 0.05px solid;
+  border-color: rgba(255, 255, 255, 0.69);
+}
+
+.navbar .logo a img {
+  width: 200px;
+  height: 132px;
+}
+
+.toggle_btn {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .toggle_btn {
+    display: block; /* Show on mobile */
+  }
+}
+
+.action_btn {
+  display: inline-flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.action_btn .buttons1 {
+  background-color: #0080ff;
+  border-radius: 42px;
+  font-weight: 700;
+  padding: 15px 25px;
+  border: solid;
+  border-color: transparent;
+}
+
+.action_btn .buttons1:hover {
+  transition: 0.5s;
+  background-color: #ffffff;
+  color: #0080ff;
+  border-color: #0080ff;
+  border: solid;
+}
+
+.action_btn .buttons2 {
+  padding: 15px 25px;
+  border-radius: 42px;
+  border: solid;
+  border-color: #ffff;
+  font-weight: 700;
+}
+
+.action_btn .buttons2:hover {
+  color: #0080ff;
+  border-color: #0080ff;
+  transition: 0.5s;
+  background-color: #ffff;
+}
+
+.navbar .links {
+  display: flex;
+  gap: 3rem;
+  font-weight: bold;
+}
+
+.navbar .links a:hover {
+  color: #0080ff;
+  transition: 0.5s;
+}
+
+.container {
+  position: absolute;
+  width: 100%; /* Adjust based on your container's width */
+  height: 100vh;
+  z-index: -1;
+  top: 0;
+}
+.img1 {
+  width: 450px;
+  height: 550px;
+  margin-top: 70px;
+}
+
+.heading1 {
+  text-align: center;
+  margin-top: 40px;
+  color: #ffff;
+  z-index: 1;
+  font-family: Montserrat-Light;
+  font-size: 30px;
+  font-weight: 300;
+}
+
+.boxcontainer {
+  margin: auto;
+  margin-top: 100px;
+  position: relative;
+  width: 650px;
+  height: 60px;
+  padding: 0px 15px;
+  background-color: #ffff;
+  border-radius: 20px;
+}
+
+.elementscontainer {
+  width: 100%;
+  height: 100%;
+  vertical-align: middle;
+}
+
+.search {
+  height: 100%;
+  width: 100%;
+  padding: 0px 5px;
+  border-radius: 50px;
+  border: none;
+  outline: none;
+  color: black;
+  font-family: "Montserrat-Light";
+  font-size: 20px;
+}
+
+.searchsubmit {
+  height: 70%;
+  width: 100%;
+  border: solid;
+  border-color: transparent;
+  background-color: #0080ff;
+  columns: #ffff;
+  font-family: "Montserrat-Light";
+  border-radius: 50px;
+  font-size: 15px;
+  padding: 0px 10px;
+}
+
+.searchsubmit:hover {
+  transition: 0.5s;
+  background-color: #ffffff;
+  color: #0080ff;
+  border-color: #0080ff;
+  border: solid;
+  cursor: pointer;
+}
+
+footer {
+  width: 100%;
+  bottom: 0;
+  padding: 100px 0 0px;
+  line-height: 20px;
+}
+
+.row {
+  width: 80%;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.col {
+  flex-basis: 25%;
+  padding: 10px;
+  padding-right: 20px;
+}
+
+.col h4 {
+  margin-bottom: 20px;
+  color: #8c87a6;
+  font-family: "Montserrat-Medium";
+  margin-left: 50px;
+}
+
+.col a {
+  display: block;
+  margin-bottom: 10px;
+  color: #000;
+  font-weight: 700;
+  margin-left: 50px;
+}
+.col a:hover {
+  display: block;
+  margin-bottom: 10px;
+  color: #0080ff;
+  cursor: pointer;
+  transition: 0.4s;
+  font-weight: 700;
+  margin-left: 50px;
+}
+
+.logo {
+  width: 80px;
+}
+
+.img3 {
+  width: 320px;
+  height: 400px;
+  margin-top: 150px;
+}
+
+.boxcontainer2 {
+  width: 100%;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  margin-top: 30px;
+  padding: 20px;
+}
+
+#drop-area {
+  min-width: 610px; /* Minimum width to ensure it doesn't get too small */
+  min-height: 200px; /* Minimum height to ensure it doesn't get too small */
+  padding: 20px;
+  background: #fff;
+  text-align: center;
+  border-radius: 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column; /* Align children vertically, change to row if needed */
+  justify-content: center; /* Center content vertically */
+  align-items: center; /* Center content horizontally */
+  box-sizing: border-box; /* Include padding and border in element's width and height */
+}
+
+.inner-box {
+  width: 100%;
+  height: 100%;
+  border: none; /* Remove border from inner-box if present */
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px; /*Adjust padding to create space between border and inner content */
+  box-sizing: border-box;
+
+  /* Background color, optional */ /* Padding inside the box */
+}
+
+#input-file {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0; /* Make the input invisible but still functional */
+  cursor: pointer; /* Change cursor to indicate a clickable area */
+}
+
+#file-preview {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center items horizontally */
+  margin: 20px;
+  margin-bottom: 30px;
+  margin-top: 30px; /* Stack items vertically */
+}
+
+.file-item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border-top: 1px solid #e1dfec;
+  justify-content: left;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+.file-icon {
+  width: 24px; /* Adjust icon size as needed */
+  height: 24px; /* Adjust icon size as needed */
+  margin-right: 10px; /* Space between icon and file name */
+}
+
+#file-preview img {
+  max-width: 100px;
+  max-height: 100px;
+  object-fit: cover;
+}
+
+#file-preview p {
+  margin: 0;
+  font-size: 12px;
+  color: #737579;
+}
+
+.buttons3 {
+  display: none;
+  cursor: pointer;
+}
+
+.buttons3:hover {
+  transition: 0.5s;
+  background-color: #ffffff;
+  color: #0080ff;
+  border-color: #0080ff;
+  border: solid;
+  cursor: pointer;
+}
+
+.show-submit-button {
+  background-color: #0080ff;
+  border-radius: 42px;
+  font-weight: 700;
+  padding: 15px 45px;
+  border: solid;
+  border-color: transparent;
+  display: block;
+  margin: 0 30%;
+}
+
+#drop-area.drop-area-no-border {
+  border: none !important; /* Use !important to override other border styles */
+}
+
+/* Ensure dashed-border class is applied correctly */
+#drop-area.drop-area-dashed {
+  border: 2px dashed #0080ff !important; /* Use !important to override other border styles */
+}
+
+#no-drop-files-heading {
+  color: #737579;
+  margin: 70px 0;
+  font-weight: 700;
+  font-size: 20px;
+  display: block; /* Ensure it is shown by default */
+}
+
+.remove-icon {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+#file-count {
+  display: none; /* Hide by default */
+}
+
+.drop-box-table {
+  width: 100%;
+  height: 100%;
+  vertical-align: middle;
+  border-collapse: collapse;
+  margin: 0;
+}
+
+.dropdown-results {
+  display: none;
+  margin: auto;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  position: relative;
+  width: 690px;
+  height: 110px;
+  padding: 0px 15px;
+  background-color: #ffff;
+  border-radius: 20px;
+}
+
+.dropdown-results.show {
+  display: block;
+}
+
+.results-table {
+  width: 100%;
+  height: 100%;
+  vertical-align: middle;
+  border-collapse: collapse;
+}
+
+.results-table th,
+.results-table td {
+  padding: 12px 8px;
+  font-size: 16px;
+  color: #737579;
+  font-weight: lighter;
+  font-family: "Montserrat-Light";
+}
+
+.results-header th {
+  font-size: 14px;
+  font-weight: bolder;
+}
+
+/* In your Style/style.css */
+
+/* Initial style for drop area with dashed border */
+#drop-area {
+  border: 2px dashed #0080ff;
+  padding: 20px;
+  transition: border 0.3s ease;
+}
+
+/* Style for drop area with no border */
+#drop-area.drop-area-no-border {
+  border: none;
+}
+
+/* Optional: Styles for submit button */
+.show-submit-button {
+  display: block;
+  /* Add other styles for the submit button here */
+}
