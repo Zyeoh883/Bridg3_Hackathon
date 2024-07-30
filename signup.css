@@ -1,0 +1,165 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  margin-top: 50px;
+  padding-bottom: 30px;
+  border-radius: 15px;
+  width: 40%;
+  gap: 16px;
+  width: 30%;
+  position: relative; /* Ensure container is positioned properly */
+  z-index: 1;
+  background-color: white;
+  height: 600px;
+  box-shadow: 1px 0 5px rgba(0, 0, 0, 0.5);
+}
+
+* {
+  color: black;
+  text-decoration: none;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  margin-top: 30px;
+}
+.text {
+  color: black;
+  font-size: 25px;
+  font-weight: 700;
+}
+.underline {
+  width: 61px;
+  height: 6px;
+  background-color: #0080ff;
+  border-radius: 9px;
+}
+
+.inputs {
+  margin-top: 55px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+.input {
+  display: flex;
+  margin-top: 20px;
+  align-items: center;
+  margin: auto;
+  width: 380px;
+  height: 40px;
+  border-radius: 6px;
+  gap: 0px;
+  margin-bottom: 20px;
+  border: 2px solid #d2d2d2;
+  background-color: #0080ff0a;
+}
+
+.input img {
+  margin: 0px 30px;
+}
+
+.input input {
+  height: 50px;
+  width: 400px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: black;
+  font-size: 15px;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+}
+
+.forgot-password {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 18px;
+}
+.forgot-password span {
+  color: #0080ff;
+  cursor: pointer;
+}
+
+.submit-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: 1px auto;
+  margin-top: 10px;
+}
+
+.submit1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 220px;
+  height: 59px;
+  color: black;
+  border-radius: 50px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.submit1:hover {
+  background-color: #0080ff;
+  color: #fff;
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+.submit2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 220px;
+  height: 59px;
+  color: black;
+  border-radius: 50px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.submit2:hover {
+  color: #0080ff;
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+.forgotpassword-click {
+  font-weight: 700;
+}
+
+.forgotpassword-click:hover {
+  color: #00478e;
+  transition: 1s;
+}
+
+body {
+  font-family: "Montserrat-Medium";
+  height: 100vh;
+  background: linear-gradient(
+    to bottom,
+    #80b2df 0%,
+    rgba(128, 178, 223, 0) 100%
+  );
+  background-attachment: fixed;
+  display: flex;
+  flex-direction: column;
+}
+* {
+  color: black;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+}

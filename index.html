@@ -4,11 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <script src="./scripts.js"></script>
+
     <link rel="stylesheet" href="Style/style.css" />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-    />
 
     <link
       rel="stylesheet"
@@ -28,7 +26,7 @@
     <header>
       <div class="navbar">
         <div class="logo">
-          <a href="index.html"><img src="Style/img/VeriChainLogo.png" /> </a>
+          <a href="#"><img src="Style/img/VeriChainLogo.png" /> </a>
         </div>
         <ul>
           <li class="links">
@@ -78,17 +76,10 @@
                   placeholder="Search Credentials"
                   class="search"
                   name="hash-input"
-                  id="input_id"
                 />
               </td>
               <td>
-                <button
-                  type="submit"
-                  class="searchsubmit"
-                  onclick="verifyFromServer()"
-                >
-                  Search
-                </button>
+                <button type="submit" class="searchsubmit">Search</button>
               </td>
             </form>
           </tr>
@@ -109,35 +100,25 @@
         <table class="results-table">
           <thead class="results-header">
             <tr>
-              <th>File Name</th>
+              <th>Name</th>
               <th>Date of Issue</th>
+              <th>Type of Credentials</th>
               <th>Issuer</th>
             </tr>
           </thead>
           <tbody class="results-body">
             <tr>
-              <th id="myHash"></th>
-              <button style="cursor: pointer" id="downloadfile">
-                <span
-                  class="material-symbols-outlined"
-                  id="downloadfile"
-                  style="
-                    color: black;
-                    position: absolute;
-                    transform: translate(338px, 67px);
-                  "
-                >
-                  download
-                </span>
-              </button>
-              <th id="myDate"></th>
+              <th>John Dew</th>
+              <th>12-April-2024</th>
+              <th>Bachelor’s Degree Cert</th>
               <th>Sunway University</th>
             </tr>
           </tbody>
         </table>
       </div>
+
       <div style="text-align: right">
-        <img src="Style/img/Img2.png" style="float: right; margin-top: 150px" />
+        <img src="Style/img/Img2.png" style="float: right; margin-top: 0px" />
       </div>
     </main>
     <hr
@@ -198,33 +179,4 @@
       </div>
     </footer>
   </body>
-  <script src="search.js" type="module"></script>
-  <script>
-    async function verifyFromServer() {
-      globalId = document.getElementById("input_id").value;
-      if (!globalId) return;
-      const formData = new FormData();
-      formData.append("filename", globalId);
-      const response = await fetch("/download", {
-        method: "POST",
-        body: formData,
-      });
-      const result = await response.text();
-      alert(result);
-    }
-  </script>
-  <!-- <script>
-    async function verifyFromServer() {
-      let id = document.getElementById("input_id").value;
-      if (!id) return;
-      const formData = new FormData();
-      formData.append("filename", id);
-      const response = await fetch("/download", {
-        method: "POST",
-        body: formData,
-      });
-      const result = await response.text();
-      alert(result);
-    }
-  </script> -->
 </html>

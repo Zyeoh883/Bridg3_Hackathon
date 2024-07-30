@@ -247,7 +247,7 @@ footer {
   margin-left: 50px;
 }
 .col a:hover {
-  display: block;
+  display: flex;
   margin-bottom: 10px;
   color: #0080ff;
   cursor: pointer;

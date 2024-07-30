@@ -38,6 +38,7 @@ app.post("/upload", upload.any(), async (req, res) => {
     return res.status(400).send("No file uploaded to server.");
   }
   let check = true;
+  let cida = null;
   for (const file of req.files) {
     const filetype = checkFileType(file.buffer);
     if (filetype < 0) {
@@ -45,6 +46,7 @@ app.post("/upload", upload.any(), async (req, res) => {
       continue;
     }
     const cid = await uploadToIPFS(fs, file.buffer);
+    if (!cida) cida = cid;
     const currentDate = new Date().toISOString().split("T")[0];
     logtext(
       `export let ${cid.toString()} = "${file.originalname
@@ -56,7 +58,7 @@ app.post("/upload", upload.any(), async (req, res) => {
   }
   if (check == false)
     return res.status(404).send(`Some Files have unideftiable format`);
-  res.status(201).send(`All files sucessfully added`); // ${req.file.originalname}  cid: ${cid.toString()}`);
+  res.status(201).send(`All files sucessfully added as ${cida.toString()}`); // ${req.file.originalname}  cid: ${cid.toString()}`);
 });
 app.post("/download", upload.none(), async (req, res) => {
   if (!req.body) {
