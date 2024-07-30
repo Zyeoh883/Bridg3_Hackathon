@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User</title>
+    <style>
+        #previewBox {
+            display: none;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+  <h1>verify from IPFS</h1>
+
+  <form id="verifyForm">
+    <input type="file" name="filename" id="CIDInput" placeholder="Enter CID" required>
+    <button type="submit">Verify CID</button>
+  </form>
+  <br>
+  <div id="previewBox">
+    <h3>File info:</h3>
+    <h3 id="name">Undefined</h3> <br>
+	<h3 id="date">Undefined</h3> <br>
+	<h3 id="file">Undefined</h3> <br>
+    <h3><a id="download" download>Download File</button></h3>
+  </div>
+  <br>
+  <h1 ><a href="index.html">Back to Main</h1>
+
+  <script type="text/javascript", src='user.js'></script>
+</body>
+</html>

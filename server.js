@@ -3,12 +3,7 @@ import multer from "multer";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 import { unixfs } from "@helia/unixfs";
-import {
-  startHelia,
-  uploadToIPFS,
-  getFileFromIPFS,
-  logLibp2pInfo,
-} from "./src/ipfs.js";
+import { startHelia, uploadToIPFS, getFileFromIPFS } from "./src/ipfs.js";
 import { logtext, writeLocalFile } from "./src/local.js";
 import { checkFileType } from "./src/validator.js";
 // setup for server
