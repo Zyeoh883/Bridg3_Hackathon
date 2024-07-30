@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Issuer</title>
+    <style>
+        #previewBox {
+            display: none;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+  <h1>Upload to IPFS</h1>
+  <form id="uploadForm" enctype="multipart/form-data">
+    <input type="file" name="file" id="fileInput" required>
+    <button type="submit">Upload</button>
+  </form>
+  <br>
+</body>
+<body>
+  <h1><a href="index.html">Back to Main</h1>
+  <br>
+</body>
+<body>
+  <div id="previewBox">
+    <h3>File Preview:</h3>
+    <canvas id="canvas"></canvas>
+    <h3><a id="download" download>Download File</button></h3>
+  </div>
+</body>
+
+  <script type="module", src='./issuer.js'></script>
+</html>
