@@ -53,7 +53,7 @@ app.post("/upload", upload.any(), async (req, res) => {
   }
   if (check == false)
     return res.status(404).send(`Some Files have unideftiable format`);
-  res.status(201).send(`All files sucessfully added as ${cida.toString()}`); // ${req.file.originalname}  cid: ${cid.toString()}`);
+  res.status(201).send(`${cida.toString()}`); // ${req.file.originalname}  cid: ${cid.toString()}`);
 });
 app.post("/download", upload.none(), async (req, res) => {
   if (!req.body) {

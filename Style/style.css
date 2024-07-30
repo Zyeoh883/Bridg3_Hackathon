@@ -468,3 +468,13 @@ footer {
   display: block;
   /* Add other styles for the submit button here */
 }
+
+.copybutton:hover {
+  cursor: pointer;
+  background-color: #0080ff;
+  color: #fff;
+}
+
+.testing {
+  background-color: #00478e;
+}
