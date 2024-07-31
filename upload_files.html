@@ -6,6 +6,10 @@
     <link rel="stylesheet" href="Style/style.css" />
     <link
       rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
     />
     <link
@@ -18,6 +22,72 @@
     />
     <title>VeriChain</title>
     <script src="script.js"></script>
+    <style>
+      .popup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        color: black;
+        border: 1px solid #ccc;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        padding: 130px;
+        z-index: 1000;
+        border-radius: 20px;
+      }
+
+      .popup.show {
+        display: block;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .popup .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: #f44;
+        color: black;
+        border: none;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        text-align: center;
+        line-height: 24px;
+        cursor: pointer;
+      }
+
+      .popup-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+      }
+
+      .popup-overlay.show {
+        display: block;
+      }
+      .prompt {
+        display: none;
+        position: absolute;
+        top: -30px; /* Adjust as needed */
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #4caf50; /* Green background */
+        color: #fff;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 12px;
+        white-space: nowrap;
+        z-index: 10;
+      }
+    </style>
   </head>
   <body>
     <header>
@@ -39,7 +109,7 @@
         </ul>
         <div class="action_btn">
           <a href="#" class="buttons1">Upload Files</a>
-          <a href="#" class="buttons2">Register</a>
+          <a href="/login.html" class="buttons2">Log Out</a>
         </div>
 
         <div class="toggle_btn">
@@ -49,7 +119,11 @@
     </header>
     <main>
       <div class="container">
-        <img src="Style/img/img3.png" class="img3" />
+        <img
+          src="Style/img/sui-coin.png"
+          class="img3"
+          style="width: 300px; height: 300px"
+        />
       </div>
       <div class="heading1">
         Upload Your Files<img
@@ -110,13 +184,72 @@
               </tr>
             </table>
           </div>
-          <button href="#" class="buttons3" onclick="sentFilestoServer()">
+          <button
+            href="#"
+            class="buttons3"
+            onclick="sentFilestoServer(); showPopup()"
+          >
             Submit
           </button>
         </div>
       </div>
+      <div id="popup-overlay" class="popup-overlay"></div>
+      <div id="popup" class="popup">
+        <button class="close-btn" onclick="hidePopup()">×</button>
+        <img src="Style/img/Success Icon.png" style="text-align: center" />
+        <h2
+          style="
+            color: black;
+            text-align: center;
+            margin-top: 50px;
+            margin-bottom: 20px;
+          "
+        >
+          Successfully Uploaded
+        </h2>
+        <p style="color: black; margin-bottom: 30px">
+          Below is the hash of your file
+        </p>
+
+        <div
+          style="display: flex; border: 1px solid #0080ff; border-radius: 15px"
+        >
+          <div
+            style="text-align: center; color: #737579; margin: 20px 40px"
+            id="myHistory"
+          >
+            No History Found
+          </div>
+          <div id="prompt" class="prompt">Copied</div>
+          <button
+            style="
+              border: none;
+              border-left: 1px solid #0080ff;
+              background-color: transparent;
+            "
+            onclick="copyToClipboard()"
+          >
+            <i
+              class="fa-regular fa-copy"
+              style="
+                padding: 15px;
+                color: #0080ff;
+                font-size: 18px;
+                outline: none;
+                border-radius: 15px;
+                margin: 6px;
+                border: 1px solid #0080ff;
+                cursor: pointer;
+              "
+            ></i>
+          </button>
+        </div>
+      </div>
       <div style="text-align: right">
-        <img src="Style/img/img4.png" style="margin-top: 50px" />
+        <img
+          src="Style/img/Rectangle 6.png"
+          style="margin-top: -200px; width: 400px; height: 400px"
+        />
       </div>
       <h4
         style="
@@ -129,12 +262,6 @@
       >
         History
       </h4>
-      <p
-        style="text-align: center; margin-top: 100px; color: #737579"
-        id="myHistory"
-      >
-        No History Found
-      </p>
     </main>
     <hr
       style="
@@ -194,4 +321,81 @@
       </div>
     </footer>
   </body>
+  <script>
+    function copyToClipboard() {
+      // Get the content of the div
+      const content = document.getElementById("myHistory").innerText;
+
+      // Create a temporary textarea element
+      const textarea = document.createElement("textarea");
+      textarea.value = content;
+      document.body.appendChild(textarea);
+
+      // Select the content and copy it to clipboard
+      textarea.select();
+      document.execCommand("copy");
+
+      // Remove the temporary textarea
+      document.body.removeChild(textarea);
+
+      // Show the prompt
+      const prompt = document.getElementById("prompt");
+      prompt.style.display = "block";
+
+      // Hide the prompt after 2 seconds
+      setTimeout(() => {
+        prompt.style.display = "none";
+      }, 2000);
+    }
+
+    async function sentFilestoServer() {
+      const filesInput = document.getElementById("input-file");
+      if (!filesInput || !filesInput.files) {
+        return;
+      }
+      const formData = new FormData();
+      for (const file of filesInput.files) {
+        formData.append("file", file);
+      }
+      const response = await fetch("/upload", {
+        method: "POST",
+        body: formData,
+      });
+      const result = await response.text();
+
+      // Display result in the popup
+      console.log(result);
+      if (result) {
+        displayCIDs(result);
+      } else {
+        displayCIDs("");
+      }
+    }
+
+    function displayCIDs(cids) {
+      const historyElement = document.getElementById("myHistory");
+      if (cids.length > 0) {
+        console.log("test");
+        historyElement.innerHTML = cids;
+        // .map((cid) => `<p>CID: ${cid}</p>`)
+      } else {
+        historyElement.innerHTML = "No History Found";
+      }
+    }
+
+    function showPopup() {
+      document.getElementById("popup").classList.add("show");
+      document.getElementById("popup-overlay").classList.add("show");
+    }
+
+    function hidePopup() {
+      document.getElementById("popup").classList.remove("show");
+      document.getElementById("popup-overlay").classList.remove("show");
+    }
+
+    // Ensure that the document is ready before attaching event listeners
+    document.addEventListener("DOMContentLoaded", () => {
+      // Any other initialization code can go here
+    });
+  </script>
 </html>

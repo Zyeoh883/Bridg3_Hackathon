@@ -1,6 +1,5 @@
-I use tsc typescript and yarn for this project
+# verichain-frontend
 
-setup with 
-yarn install
-yarn run build
-yarn run start
+This is the front-end development for VeriChain
+
+I CANT MAKE DOWNLOAD LINK PLICK look int that

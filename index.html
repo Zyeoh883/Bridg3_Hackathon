@@ -41,12 +41,12 @@
               </span></a
             >
             <a href="#">Pricing</a>
-            <a href="#">Contact Us</a>
+            <a href="/login.html">Contact Us</a>
           </li>
         </ul>
         <div class="action_btn">
           <a href="upload_files.html" class="buttons1">Upload Files</a>
-          <a href="#" class="buttons2">Register</a>
+          <a href="/login.html" class="buttons2">Log Out</a>
         </div>
 
         <div class="toggle_btn">
@@ -120,7 +120,6 @@
               <button style="cursor: pointer" id="downloadfile">
                 <span
                   class="material-symbols-outlined"
-                  id="downloadfile"
                   style="
                     color: black;
                     position: absolute;
@@ -137,7 +136,7 @@
         </table>
       </div>
       <div style="text-align: right">
-        <img src="Style/img/Img2.png" style="float: right; margin-top: 150px" />
+        <img src="Style/img/Img2.png" style="float: right; margin-top: -50px" />
       </div>
     </main>
     <hr
@@ -200,6 +199,7 @@
   </body>
   <script src="search.js" type="module"></script>
   <script>
+    let FileURL = null;
     async function verifyFromServer() {
       globalId = document.getElementById("input_id").value;
       if (!globalId) return;
@@ -209,8 +209,38 @@
         method: "POST",
         body: formData,
       });
-      const result = await response.text();
-      alert(result);
+      if (!response.ok) {
+        const errmsg = await response.text();
+        console.log(errmsg);
+        return;
+      }
+      const result = await response.blob();
+      // const buffer = await result;
+      console.log(result);
+      if (FileURL) {
+        URL.revokeObjectURL(FileURL);
+      }
+
+      FileURL = URL.createObjectURL(result);
+      console.log(FileURL);
+
+      downloadfile = document.getElementById("downloadfile");
+      const downloadLink = document.createElement("a");
+      downloadLink.href = FileURL;
+      document.body.appendChild(downloadfile);
+      downloadLink.click();
+
+      const contentDisposition = response.headers.get("Content-Disposition");
+      let filename = "default";
+      if (contentDisposition) {
+        const match = contentDisposition.match(/filename="(.+?)"/);
+        if (match && match[1]) {
+          filename = match[1];
+        }
+      }
+      console.log(filename);
+
+      downloadLink.download = filename;
     }
   </script>
   <!-- <script>

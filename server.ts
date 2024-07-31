@@ -1,85 +1,97 @@
-import express, { Express, Request, Response } from 'express'
-import multer, { Multer } from 'multer'
-import { dirname, join } from 'path'
-import { fileURLToPath } from 'url'
-import { Helia } from 'helia'
-import { UnixFS, unixfs } from '@helia/unixfs'
-import { CID } from 'multiformats/cid'
-import { startHelia, uploadToIPFS, getFileFromIPFS } from './src/ipfs.js'
-import { logtext, writeLocalFile } from './src/local.js'
-import { checkFileType } from './src/validator.js'
+import express, { Request, Response } from "express";
+import multer from "multer";
+import { join, dirname } from "path";
+import { fileURLToPath } from "url";
+import { unixfs } from "@helia/unixfs";
+import { CID } from "multiformats";
+import { startHelia, getFileFromIPFS, uploadToIPFS } from "./src/ipfs.js";
+import { writeLocalFile, logtext, bundle_file, decodeQR } from "./src/local.js";
+import { checkFileType } from "./src/validator.js";
 
 // setup for server
-const app: Express = express();
-const upload: Multer = multer({ storage: multer.memoryStorage() })
-const port: number = 6969;
-const launchdir: string = join(dirname(fileURLToPath(import.meta.url)));
+const app = express();
+const upload = multer({ storage: multer.memoryStorage() });
+const port: string = process.env.PORT || "5000";
+const launchdir = dirname(fileURLToPath(import.meta.url));
 
 // start helia for ipfs connection
-const helia: Helia = await startHelia();
-const fs: UnixFS = unixfs(helia);
-const logfile: string = 'log.txt';
+const helia = await startHelia();
+const fs = unixfs(helia);
+const logfile = "public/log.txt";
 
-app.use('/', express.static(join(launchdir)));
+export interface Account {
+  name: string;
+}
 
-app.get('/upload', (req: Request, res: Response) => {
-	res.sendFile(join(launchdir, '/upload_files.html'));
+let acc: Account = { name: "Sunway University" };
+
+app.use("/", express.static(join(launchdir + "/public")));
+
+app.post(
+  "/upload",
+  upload.single("file"),
+  async (req: Request, res: Response) => {
+    if (!req.file) {
+      return res.status(400).send(null);
+    }
+    if (checkFileType(req.file.buffer) < 0) {
+      return res.status(404).send(null);
+    }
+    const file: Uint8Array = await bundle_file(
+      acc,
+      req.file.buffer,
+      req.file.originalname
+    );
+    const cid: CID = await uploadToIPFS(fs, Buffer.from(file));
+    res.status(201).send(cid.toString());
+    // logtext(`Added file '${req.file.originalname}' as ${cid.toString()}`, logfile);
+  }
+);
+
+app.post(
+  "/download",
+  upload.single("file"),
+  async (req: Request, res: Response) => {
+    if (!req.file) {
+      return res.status(404).send("No files received");
+    }
+    if (checkFileType(req.file.buffer) <= 0) {
+      return res.status(404).send("Wrong file format given");
+    }
+    const cid = await decodeQR(Buffer.from(req.file.buffer));
+    if (!cid) return res.status(404).send("invalid QRcode");
+    const info = await getFileFromIPFS(fs, cid);
+    if (!info[0]) return res.status(info[1]).send(info[2]);
+    const fileType = checkFileType(info[0]);
+    if (fileType != 0)
+      return res.status(404).send("Unknown File received from ipfs");
+    // const extension = ["JPG", "PNG", "pdf"]
+    // writeLocalFile(info[0], join('test_files/' + req.body.filename + "." + extension[fileType]));
+    // console.log(info[0].length);
+    // writeLocalFile(info[0], 'test.zip');
+    const buffer = Buffer.from(info[0]);
+    res.set({
+      "Content-Type": "application/zip",
+      "Content-Disposition": 'attachment; filename="package.zip"',
+      "Content-Length": buffer.length,
+    });
+    res.status(info[1]).send(buffer);
+  }
+);
+
+app.use((req: Request, res: Response) => {
+  res.status(404).send(`<h1>Error 404: Request not found</h1>`);
 });
 
-app.get('/about.html', (req: Request, res: Response) => {
-	res.sendFile(join(launchdir, '/about.html'));
+app.listen(parseInt(port), () => {
+  console.log(`App is listening on http://localhost:${port}`);
+  // logtext('New server session', logfile);
 });
 
-// app.get('/issuer', (req: Request, res: Response) => {
-// 	res.sendFile(join(launchdir, '/issuer.html'));
-// });
-
-app.post('/upload', upload.any(), async (req: Request, res: Response) => {
-	if (!req.files || (req.files as Express.Multer.File[]).length === 0) {
-		return (res.status(400).send('No file uploaded to server.'));
-	}
-	let check : boolean = true;
-	for (const file of (req.files as Express.Multer.File[])) {
-		const filetype: number = checkFileType(file.buffer);
-		if (filetype < 0) {
-			check = false;
-			continue ;
-		}
-		const cid: CID = await uploadToIPFS(fs, file.buffer);
-		logtext(`Added file '${file.originalname}' as ${cid.toString()}`, logfile);
-	}
-	if (check == false)
-		return (res.status(404).send(`Some Files have unideftiable format`));
-	res.status(201).send(`All files sucessfully added`);// ${req.file.originalname}  cid: ${cid.toString()}`);
+process.on("SIGINT", () => {
+  // console.log( "\nGracefully shutting down from SIGINT (Ctrl-C)" );
+  helia.stop();
+  process.exit();
 });
 
-app.post('/download', upload.none(), async (req : Request, res: Response) => {
-	if (!req.body) {
-		return (res.status(404).send('No CID received'));
-	}
-	const info: [Uint8Array | null, number, string] = await getFileFromIPFS(fs, req.body.filename);
-	if (!info[0]) {
-		return (res.status(info[1]).send(info[2]));
-	}
-	const fileType = checkFileType(info[0])
-	if (fileType < 0) {
-		return (res.status(404).send('Unknown File received from ipfs'));
-	}
-	const extension = ["JPG", "PNG", "pdf"]
-	writeLocalFile(info[0], join('test_files/' + req.body.filename + "." + extension[fileType]));
-	res.status(info[1]).send(info[2]);
-});
-
-app.use((req : Request, res : Response) => {
-	res.status(404).send(`<h1>Error 404: Request not found</h1>`);
-});
-
-app.listen(port, async() =>  {
-	console.log(`App is ready and listening on http://localhost:${port}`);
-});
-
-process.on('SIGINT', () => {
-	console.log( "\nGracefully shutting down from SIGINT (Ctrl-C)" );
-	helia.stop();
-	process.exit();
-});
+export default app;
