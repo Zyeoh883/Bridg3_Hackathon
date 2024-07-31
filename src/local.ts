@@ -3,7 +3,7 @@ import { join } from "path";
 import JSZip from "jszip";
 import Jimp from "jimp";
 import JsQR from "jsqr";
-import { Account } from "../server";
+import { Account } from "../public/server";
 
 export function logtext(text: string, logfile: string): void {
   fs.appendFileSync(logfile, join(text + "\n"), { flag: "a+" });

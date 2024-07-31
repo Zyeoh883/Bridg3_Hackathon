@@ -4,9 +4,14 @@ import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 import { unixfs } from "@helia/unixfs";
 import { CID } from "multiformats";
-import { startHelia, getFileFromIPFS, uploadToIPFS } from "./src/ipfs.js";
-import { writeLocalFile, logtext, bundle_file, decodeQR } from "./src/local.js";
-import { checkFileType } from "./src/validator.js";
+import { startHelia, getFileFromIPFS, uploadToIPFS } from "../src/ipfs.js";
+import {
+  writeLocalFile,
+  logtext,
+  bundle_file,
+  decodeQR,
+} from "../src/local.js";
+import { checkFileType } from "../src/validator.js";
 
 // setup for server
 const app = express();
