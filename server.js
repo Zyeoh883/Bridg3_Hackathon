@@ -64,15 +64,25 @@ app.post("/download", upload.none(), async (req, res) => {
     return res.status(info[1]).send(info[2]);
   }
   const fileType = checkFileType(info[0]);
-  if (fileType < 0) {
+  if (fileType < 0 || fileType > 2) {
     return res.status(404).send("Unknown File received from ipfs");
   }
-  const extension = ["JPG", "PNG", "pdf"];
+  const type = ["image/jpeg", "image/png", "application/pdf"];
+  const extension = ["JPG, PNG, pdf"];
+
+  const buffer = Buffer.from(info[0]);
+  console.log(fileType);
+  console.log(buffer.length);
+  res.set({
+    "Content-Type": `${type[fileType]}`,
+    "Content-Disposition": `attachment; filename="package.${extension[fileType]}`,
+    "Content-Length": buffer.length,
+  });
+  res.status(info[1]).send(buffer);
   writeLocalFile(
     info[0],
-    join("test_files/" + req.body.filename + "." + extension[fileType])
+    `test_files/${req.body.filename}.extension[FileType]`
   );
-  res.status(info[1]).send(info[2]);
 });
 app.use((req, res) => {
   res.status(404).send(`<h1>Error 404: Request not found</h1>`);

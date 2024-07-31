@@ -120,7 +120,6 @@
               <button style="cursor: pointer" id="downloadfile">
                 <span
                   class="material-symbols-outlined"
-                  id="downloadfile"
                   style="
                     color: black;
                     position: absolute;
@@ -200,6 +199,7 @@
   </body>
   <script src="search.js" type="module"></script>
   <script>
+    let FileURL = null;
     async function verifyFromServer() {
       globalId = document.getElementById("input_id").value;
       if (!globalId) return;
@@ -209,7 +209,38 @@
         method: "POST",
         body: formData,
       });
-      const result = await response.text();
+      if (!response.ok) {
+        const errmsg = await response.text();
+        console.log(errmsg);
+        return;
+      }
+      const result = await response.blob();
+      // const buffer = await result;
+      console.log(result);
+      if (FileURL) {
+        URL.revokeObjectURL(FileURL);
+      }
+
+      FileURL = URL.createObjectURL(result);
+      console.log(FileURL);
+
+      downloadfile = document.getElementById("downloadfile");
+      const downloadLink = document.createElement("a");
+      downloadLink.href = FileURL;
+      document.body.appendChild(downloadfile);
+      downloadLink.click();
+
+      const contentDisposition = response.headers.get("Content-Disposition");
+      let filename = "default";
+      if (contentDisposition) {
+        const match = contentDisposition.match(/filename="(.+?)"/);
+        if (match && match[1]) {
+          filename = match[1];
+        }
+      }
+      console.log(filename);
+
+      downloadLink.download = filename;
     }
   </script>
   <!-- <script>
